@@ -1,11 +1,11 @@
 steps:
   # Build the Docker image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/${PROJECT_ID}/my-node-app', '.']
+    args: ['build', '-t', 'gcr.io/${PROJECT_ID}/node', '.']
 
   # Push the Docker image to Google Container Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/${PROJECT_ID}/my-node-app']
+    args: ['push', 'gcr.io/${PROJECT_ID}/node']
 
   # Deploy the application to Google Cloud Run
   - name: 'gcr.io/cloud-builders/gcloud'
@@ -13,9 +13,9 @@ steps:
       - 'run'
       - 'deploy'
       - 'my-node-app'
-      - '--image=gcr.io/${PROJECT_ID}/my-node-app'
+      - '--image=gcr.io/${PROJECT_ID}/node'
       - '--platform=managed'
       - '--region=us-central1'
 
 images:
-- 'gcr.io/${PROJECT_ID}/my-node-app'
+- 'gcr.io/${PROJECT_ID}/node'
