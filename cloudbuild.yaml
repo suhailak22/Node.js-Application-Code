@@ -1,20 +1,8 @@
 steps:
-  # Build the Docker image
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/antony-2504/node', '.']
-  
-  # Push the Docker image to Google Container Registry
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/antony-2504/node']
-  
-  # Deploy the application to Google Cloud Run
+  # SSH into the instance
   - name: 'gcr.io/cloud-builders/gcloud'
-    args:
-      - 'run'
-      - 'deploy'
-      - 'my-node-app'
-      - '--image=gcr.io/antony-2504/node'
-      - '--platform=managed'
-      - '--region=us-central1'
-images:
-  - 'gcr.io/antony-2504/node'
+    args: ['compute', 'ssh', 'antonyavanexa@instance-demo', '--zone=us-central1-a', '--command', 'sudo touch /tmp/test']
+
+  # Confirm directory creation
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['compute', 'ssh', 'antonyavanexa@instance-demo', '--zone=us-central1-a', '--command', 'ls -l /tmp']
