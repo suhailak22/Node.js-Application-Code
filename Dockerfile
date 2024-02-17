@@ -6,55 +6,34 @@ WORKDIR /usr/src/app/
 
 # Copy the requirements.txt file into the container
 
-COPY main.py main.py
-RUN yum update -y
+#COPY main.py main.py
 
-RUN yum install -y gcc
-RUN yum install -y sudo
-RUN yum install -y gnupg2
-RUN sudo dnf install openssl-devel bzip2-devel libffi-devel -y
-RUN sudo dnf groupinstall "Development Tools" -y
-RUN sudo yum install python3.11 -y
-RUN yum install epel-release -y
-RUN yum install python-pip -y
-RUN yum install python3-pip -y
-RUN pip3 install streamlit
-RUN pip3 install langchain
-RUN pip3 install torch
-RUN pip3 install networkx
-RUN pip3 install pandas
+RUN echo -e "[gcsfuse]\nname=gcsfuse (packages.cloud.google.com)\nbaseurl=https://packages.cloud.google.com/yum/repos/gcsfuse-el7-x86_64\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=0\ngpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg\n      https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg" | tee /etc/yum.repos.d/gcsfuse.repo > /dev/null && \
+    yum update -y && \
+    yum install -y gcc sudo gnupg2 epel-release && \
+    yum install openssl-devel bzip2-devel libffi-devel -y && \
+    yum groupinstall "Development Tools" -y && \
+    yum install python3.11 -y && \
+    yum install python-pip python3-pip -y && \
+    yum install -y fuse && \
+    yum install gcsfuse -y
+RUN pip3 install streamlit langchain torch networkx pandas 
+
+
 
 # Install gcsfuse
 
-RUN sudo yum install -y fuse 
-RUN sudo tee /etc/yum.repos.d/gcsfuse.repo > /dev/null <<EOF
-[gcsfuse]
-name=gcsfuse (packages.cloud.google.com)
-baseurl=https://packages.cloud.google.com/yum/repos/gcsfuse-el7-x86_64
-enabled=1
-gpgcheck=1
-repo_gpgcheck=0
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
-      https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-EOF
-RUN yum install gcsfuse -y
-
-
-
 # Copy the GCP service account key into the Docker image
-
-COPY "key2.json" "service-account-key.json"
+#COPY "key2.json" "service-account-key.json"
 
 # Set the GOOGLE_APPLICATION_CREDENTIALS environment variable
-
 ENV GOOGLE_APPLICATION_CREDENTIALS="/usr/src/app/key.json"
 RUN mkdir test
+
 # Index of /apt//
 # Install any needed packages specified in requirements.txt
 ##RUN pip install --upgrade pip && pip install -r requirements.txt
-
 # Copy the current directory contents into the container
 ##COPY . .
-
 # Run script.py when the container launches
 ##CMD ["python", "./embed_script.py"]
