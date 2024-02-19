@@ -6,4 +6,3 @@ steps:
   # Confirm directory creation
   - name: 'gcr.io/cloud-builders/gcloud'
     args: ['compute', 'ssh', 'antonyavanexa@instance-latest', '--zone=us-central1-a', '--command', 'ls -l /var']
-	
