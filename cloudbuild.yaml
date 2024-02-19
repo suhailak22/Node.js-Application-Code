@@ -1,12 +1,9 @@
 steps:
-  # Build the Docker image
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/pure-media-413711/your-image-name', '.']
-  
-  # Push the Docker image to your instance
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['save', 'gcr.io/pure-media-413711/your-image-name', '|', 'ssh', 'antonyavanexa@instance-2', 'docker', 'load']
-  
-  # Start the Docker container on your instance
+  # SSH into the instance
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['compute', 'ssh', 'antonyavanexa@instance-2', '--zone=us-central1-a', '--command', 'docker run -d -p 80:80 gcr.io/pure-media-413711/your-image-name']
+    args: ['compute', 'ssh', 'antonyavanexa@instance-latest', '--zone=us-central1-a', '--command', 'sudo mkdir /var/test']
+
+  # Confirm directory creation
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['compute', 'ssh', 'antonyavanexa@instance-latest', '--zone=us-central1-a', '--command', 'ls -l /var']
+	
