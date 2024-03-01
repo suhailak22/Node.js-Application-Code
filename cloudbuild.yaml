@@ -1,12 +1,12 @@
 steps:
-  # Copy files to instance
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['compute', 'scp', '--zone=us-central1-a', '--recurse', 'Dockerfile', 'test.sh', 'antonyavanexa@instance-latest:/var/test']
+  # Copy the Dockerfile to the instance
+  - name: 'gcr.io/cloud-builders/gsutil'
+    args: ['cp', 'Dockerfile', 'antonyavanexa@instance-latest:/home/antonyavanexa/']
 
-  # SSH into the instance and execute test.sh
+  # SSH into the instance and build the Docker image
   - name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        gcloud compute ssh antonyavanexa@instance-latest --zone=us-central1-a --command 'cd /var/test && chmod +x test.sh && ./test.sh'
+    args: ['compute', 'ssh', 'antonyavanexa@instance-latest', '--zone=us-central1-a', '--command', 'sudo docker build -t baseimage:v1 /home/antonyavanexa/']
+
+  # Confirm the Docker image creation
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['compute', 'ssh', 'antonyavanexa@instance-latest', '--zone=us-central1-a', '--command', 'sudo docker images']
