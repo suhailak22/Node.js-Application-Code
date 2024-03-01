@@ -1,9 +1,15 @@
 steps:
-   - gcloud compute scp --zone us-central1-a -r antonyavanexa@instance-latest:/home/antonyavanexa/googlecloud https://github.com/Antony-2504/Node.js-Application-Code.git/
-
-  # SSH into the instance and build the Docker image
+  # Clone the private GitHub repository using the GitHub access token variable
+  - name: 'gcr.io/cloud-builders/git'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        git clone --recursive https://github.com/Antony-2504/Node.js-Application-Code.git source
+        
+   # SSH into the instance and build the Docker image in baseimage:v1
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['compute', 'ssh', 'antonyavanexa@instance-latest', '--zone=us-central1-a', '--command', 'sudo docker build -t baseimage:v1 /home/antonyavanexa/']
+    args: ['compute', 'ssh', 'antonyavanexa@instance-latest', '--zone=us-central1-a', '--command', 'sudo docker build -t baseimage:v1 /home/antonyavanexa']
 
   # Confirm the Docker image creation
   - name: 'gcr.io/cloud-builders/gcloud'
