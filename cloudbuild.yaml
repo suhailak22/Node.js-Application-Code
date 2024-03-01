@@ -5,12 +5,12 @@ steps:
     args:
       - '-c'
       - |
-        git clone --recursive https://github.com/Antony-2504/Node.js-Application-Code.git source
-        
+        git clone --recursive https://github.com/Antony-2504/Node.js-Application-Code.git /home/antonyavanexa/
+
    # SSH into the instance and build the Docker image in baseimage:v1
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['compute', 'ssh', 'antonyavanexa@instance-latest', '--zone=us-central1-a', '--command', 'sudo docker build -t baseimage:v1 /home/antonyavanexa']
+    args: ['compute', 'ssh', 'antonyavanexa@instance-latest', '--zone=us-central1-a', '--command', 'docker build -t baseimage:v1 /home/antonyavanexa/']
 
   # Confirm the Docker image creation
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['compute', 'ssh', 'antonyavanexa@instance-latest', '--zone=us-central1-a', '--command', 'sudo docker images']
+    args: ['compute', 'ssh', 'antonyavanexa@instance-latest', '--zone=us-central1-a', '--command', 'docker images']
