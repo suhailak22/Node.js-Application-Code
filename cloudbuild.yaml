@@ -1,8 +1,7 @@
 steps:
-  # SSH into the instance
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['compute', 'ssh', 'antonyavanexa@instance-latest', '--zone=us-central1-a', '--command', 'sudo mkdir /var/test2']
-
-  # Confirm directory creation
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['compute', 'ssh', 'antonyavanexa@instance-latest', '--zone=us-central1-a', '--command', 'ls -l /var']
+  - name: 'gcr.io/cloud-builders/terraform'
+    args: ['init']
+    dir: '<PATH_TO_TERRAFORM_CONFIG>'
+  - name: 'gcr.io/cloud-builders/terraform'
+    args: ['apply', '-auto-approve']
+    dir: 'terraform'
