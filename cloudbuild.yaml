@@ -1,7 +1,7 @@
 steps:
-  - name: 'gcr.io/cloud-builders/terraform'
+  - name: 'gcr.io/cloud-builders/terraform:0.15.0'
     args: ['init']
     dir: '.'
-  - name: 'gcr.io/cloud-builders/terraform'
+  - name: 'gcr.io/cloud-builders/terraform:0.15.0'
     args: ['apply', '-auto-approve']
     dir: '.'
