@@ -1,7 +1,7 @@
 steps:
   - name: 'gcr.io/cloud-builders/terraform'
     args: ['init']
-    dir: 'path_to_your_terraform_config'
+    dir: '.'
   - name: 'gcr.io/cloud-builders/terraform'
     args: ['apply', '-auto-approve']
-    dir: 'path_to_your_terraform_config'
+    dir: '.'
