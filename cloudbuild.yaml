@@ -1,10 +1,7 @@
 steps:
-  # Step to initialize Terraform
-  - name: 'gcr.io/cloud-builders/terraform:0.15.5'
+  - name: 'gcr.io/cloud-builders/terraform'
     args: ['init']
-    dir: 'terraform.tf'
-
-  # Step to apply Terraform changes
-  - name: 'gcr.io/cloud-builders/terraform:0.15.5'
+    dir: 'path_to_your_terraform_config'
+  - name: 'gcr.io/cloud-builders/terraform'
     args: ['apply', '-auto-approve']
-    dir: 'terraform.tf'
+    dir: 'path_to_your_terraform_config'
