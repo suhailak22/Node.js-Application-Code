@@ -1,13 +1,31 @@
 steps:
-- name: 'gcr.io/cloud-builders/gcloud'
-  entrypoint: 'bash'
-  args:
-  - '-c'
-  - |
-    echo $SA_KEY > /tmp/sa_key.json
-    gcloud auth activate-service-account --key-file=/tmp/sa_key.json
-    git clone https://github.com/Antony-2504/Node.js-Application-Code.git
-    cd your-repo
-    terraform init
-    terraform plan
-    terraform apply -auto-approve
+  # Step 1: Install Terraform
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'run'
+      - '--rm'
+      - '-v'
+      - '.:/workspace'
+      - 'hashicorp/terraform:latest'
+      - 'init'
+
+  # Step 2: Terraform Plan
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'run'
+      - '--rm'
+      - '-v'
+      - '.:/workspace'
+      - 'hashicorp/terraform:latest'
+      - 'plan'
+
+  # Step 3: Terraform Apply
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'run'
+      - '--rm'
+      - '-v'
+      - '.:/workspace'
+      - 'hashicorp/terraform:latest'
+      - 'apply'
+      - '-auto-approve'
