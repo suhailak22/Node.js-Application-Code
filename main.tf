@@ -18,7 +18,7 @@ resource "google_compute_instance" "demo-instance" {
 
   boot_disk {
     initialize_params {
-      image = " ubuntu-2004-focal-arm64-v20240307b"
+      image = "ubuntu-2004-focal-arm64-v20240307b"
     }
   }
 
