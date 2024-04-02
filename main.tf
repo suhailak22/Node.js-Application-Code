@@ -18,7 +18,7 @@ resource "google_compute_instance" "demo-instance" {
 
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-10"
+      image = "Ubuntu 20.04 LTS"
     }
   }
 
