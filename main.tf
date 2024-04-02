@@ -1,5 +1,5 @@
 provider "google" {
-  credentials = file("terra.json")
+  credentials = file("tera.json")
   project     = "able-river-419007"
   region      = "us-central1"
 }
