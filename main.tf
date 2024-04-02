@@ -18,7 +18,7 @@ resource "google_compute_instance" "demo-instance" {
 
   boot_disk {
     initialize_params {
-      image = "Ubuntu"
+      image = "ubuntu-1804-bionic-v20231020"
     }
   }
 
