@@ -1,17 +1,8 @@
 steps:
-  # Clone the private GitHub repository using the GitHub access token variable
-  - name: 'gcr.io/cloud-builders/git'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        git clone --recursive https://github.com/Antony-2504/Node.js-Application-Code.git source
-  # Copy the build artifact to your VM instance
+  # SSH into the instance
   - name: 'gcr.io/cloud-builders/gcloud'
-    args:
-      - 'compute'
-      - 'scp'
-      - '--recurse'
-      - 'source'
-      - 'suhailakofficial@first:/tmp'
-      - '--zone=us-central1-a'
+    args: ['compute', 'ssh', 'suhailakofficial@first', '--zone=us-central1-a', '--command', 'sudo mkdir /var/test']
+
+  # Confirm directory creation
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['compute', 'ssh', 'suhailakofficial@first', '--zone=us-central1-a', '--command', 'ls -l /var']
