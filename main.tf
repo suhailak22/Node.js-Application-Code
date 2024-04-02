@@ -4,8 +4,15 @@ provider "google" {
   region      = "us-central1"
 }
 
+terraform {
+  backend "gcs" {
+    bucket  = "terraform-12"
+    prefix  = "terraform/state"
+  }
+}
+
 resource "google_compute_instance" "demo-instance" {
-  name         = "demo-instance"
+  name         = "demo-instance-1"
   machine_type = "e2-medium"
   zone         = "us-central1-a"
 
