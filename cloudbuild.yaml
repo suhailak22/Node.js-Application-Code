@@ -1,3 +1,20 @@
 steps:
-- name: 'gcr.io/cloud-builders/bash'
-  args: ['-c', './deploy.sh']
+  # Step to initialize Terraform
+  - name: 'hashicorp/terraform:latest'
+    args: ['init']
+    dir: '/'  # Update the dir parameter to point to the root directory
+
+  # Step to validate Terraform configuration
+  - name: 'hashicorp/terraform:latest'
+    args: ['validate']
+    dir: '/'
+
+  # Step to plan Terraform changes
+  - name: 'hashicorp/terraform:latest'
+    args: ['plan']
+    dir: '/'
+
+  # Step to apply Terraform changes
+  - name: 'hashicorp/terraform:latest'
+    args: ['apply', '-auto-approve']
+    dir: '/'
