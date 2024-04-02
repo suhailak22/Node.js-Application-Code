@@ -4,7 +4,7 @@ provider "google" {
   region      = "us-central1"
 }
 
-resource "google_compute_instance" "demo_instance" {
+resource "google_compute_instance" "DEEEMOO-instance" {
   name         = "DEEEMOO-instance"
   machine_type = "e2-medium"
   zone         = "us-central1-a"
