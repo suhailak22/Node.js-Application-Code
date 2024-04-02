@@ -5,7 +5,7 @@ provider "google" {
 }
 
 resource "google_compute_instance" "demo_instance" {
-  name         = "demo-instance"
+  name         = "DEEEMOO-instance"
   machine_type = "e2-medium"
   zone         = "us-central1-a"
 
