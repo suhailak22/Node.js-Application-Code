@@ -1,7 +1,7 @@
 steps:
   # Step to check out the code from GitHub
   - name: 'gcr.io/cloud-builders/git'
-    args: ['clone', 'https://github.com/Antony-2504/Node.js-Application-Code.git']
+    args: ['clone', 'https://$_GITHUB_TOKEN@github.com/Antony-2504/Node.js-Application-Code.git']
     dir: '/workspace'
 
   # Step to initialize Terraform
