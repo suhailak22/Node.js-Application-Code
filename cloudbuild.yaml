@@ -1,31 +1,17 @@
 steps:
-  # Step 1: Install Terraform
-  - name: 'gcr.io/cloud-builders/docker'
+  # Clone the private GitHub repository using the GitHub access token variable
+  - name: 'gcr.io/cloud-builders/git'
+    entrypoint: 'bash'
     args:
-      - 'run'
-      - '--rm'
-      - '-v'
-      - '.:/workspace'
-      - 'hashicorp/terraform:latest'
-      - 'init'
-
-  # Step 2: Terraform Plan
-  - name: 'gcr.io/cloud-builders/docker'
+      - '-c'
+      - |
+        git clone --recursive https://github.com/Antony-2504/Node.js-Application-Code.git source
+  # Copy the build artifact to your VM instance
+  - name: 'gcr.io/cloud-builders/gcloud'
     args:
-      - 'run'
-      - '--rm'
-      - '-v'
-      - '.:/workspace'
-      - 'hashicorp/terraform:latest'
-      - 'plan'
-
-  # Step 3: Terraform Apply
-  - name: 'gcr.io/cloud-builders/docker'
-    args:
-      - 'run'
-      - '--rm'
-      - '-v'
-      - '.:/workspace'
-      - 'hashicorp/terraform:latest'
-      - 'apply'
-      - '-auto-approve'
+      - 'compute'
+      - 'scp'
+      - '--recurse'
+      - 'source'
+      - 'suhailakofficial@first:/home/'
+      - '--zone=us-central1-a'
