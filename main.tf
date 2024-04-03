@@ -22,7 +22,7 @@ resource "google_compute_instance" "demo-instance" {
     }
   }
 
- // Specify the network interface configuration
+  // Specify the network interface configuration
   network_interface {
     network = "default"
 
@@ -33,3 +33,14 @@ resource "google_compute_instance" "demo-instance" {
   }
 }
 
+resource "google_compute_firewall" "allow-ssh" {
+  name    = "allow-ssh"
+  network = "default"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22", "80"]
+  }
+
+  source_ranges = ["0.0.0.0/"]  # Adjust this to your IP range
+}
