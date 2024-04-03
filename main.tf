@@ -22,12 +22,22 @@ resource "google_compute_instance" "demo-instance" {
     }
   }
 
+ // Specify the network interface configuration
   network_interface {
     network = "default"
+
+    // Access configuration
     access_config {
       // Ephemeral IP
     }
   }
+}
 
-  metadata_startup_script = "echo 'Hello, World!' > /var/www/html/index.html && sudo service apache2 restart"
+// Enable the Network Management API
+resource "google_project_service" "networkmanagement" {
+  service = "networkmanagement.googleapis.com"
+  project = "cogent-theater-412814"
+
+  // Ensure that the API is enabled
+  disable_on_destroy = false
 }
