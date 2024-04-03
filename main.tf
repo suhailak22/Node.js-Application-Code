@@ -42,5 +42,5 @@ resource "google_compute_firewall" "allow-ssh" {
     ports    = ["22", "80"]
   }
 
-  source_ranges = ["0.0.0.0/"]  # Adjust this to your IP range
+  source_ranges = ["0.0.0.0/0"]  # Allow traffic from any IP address
 }
