@@ -11,7 +11,7 @@ resource "google_compute_instance" "demo-instance" {
 
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-10"
+      image = "ubuntu-2004-focal-v20240307b"
     }
   }
 
