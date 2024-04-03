@@ -12,7 +12,7 @@ terraform {
 }
 
 resource "google_compute_instance" "demo-instance" {
-  name         = "demo-instance-2"
+  name         = "demo-instance-3"
   machine_type = "e2-medium"
   zone         = "us-central1-a"
 
@@ -33,11 +33,3 @@ resource "google_compute_instance" "demo-instance" {
   }
 }
 
-// Enable the Network Management API
-resource "google_project_service" "networkmanagement" {
-  service = "networkmanagement.googleapis.com"
-  project = "cogent-theater-412814"
-
-  // Ensure that the API is enabled
-  disable_on_destroy = false
-}
